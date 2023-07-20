@@ -10,26 +10,13 @@ export const Flashcards = objectType({
     },
 });
 
-let flashcards: NexusGenObjects["Flashcards"][]= [   
-    {
-        id: 1,
-        title: "www.howtographql.com",
-        details: "Fullstack tutorial for GraphQL",
-    },
-    {
-        id: 2,
-        title: "graphql.org",
-        details: "GraphQL official website",
-    },
-];
-
 export const FlashcardsQuery = extendType({ 
     type: "Query",
     definition(t) {
         t.nonNull.list.nonNull.field("feed", {   
             type: "Flashcards",
             resolve(parent, args, context, info) {    
-                return flashcards;
+                return context.prisma.flashCard.findMany();
             },
         });
     },
@@ -46,16 +33,13 @@ export const FlashcardsMutation = extendType({
             },
             
             resolve(parent, args, context) {    
-                const { title, details } = args; 
-                
-                let idCount = flashcards.length + 1;  
-                const flashcard = {
-                    id: idCount,
-                    details: details,
-                    title: title,
-                };
-                flashcards.push(flashcard);
-                return flashcard;
+                const newFlashcard = context.prisma.flashCard.create({   // 2
+                    data: {
+                        title: args.title,
+                        details: args.details,
+                    },
+                });
+                return newFlashcard;
             },
         });
     },
