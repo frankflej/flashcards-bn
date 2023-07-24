@@ -9,7 +9,9 @@ type Flashcards {
 }
 
 type Mutation {
+  deleteFlashcard(id: Int!): Flashcards!
   post(details: String!, title: String!): Flashcards!
+  updateFlashcard(details: String!, id: Int!, title: String!): Flashcards!
 }
 
 type Query {

@@ -54,7 +54,9 @@ export interface NexusGenFieldTypes {
     title: string; // String!
   }
   Mutation: { // field return type
+    deleteFlashcard: NexusGenRootTypes['Flashcards']; // Flashcards!
     post: NexusGenRootTypes['Flashcards']; // Flashcards!
+    updateFlashcard: NexusGenRootTypes['Flashcards']; // Flashcards!
   }
   Query: { // field return type
     feed: NexusGenRootTypes['Flashcards'][]; // [Flashcards!]!
@@ -68,7 +70,9 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
   }
   Mutation: { // field return type name
+    deleteFlashcard: 'Flashcards'
     post: 'Flashcards'
+    updateFlashcard: 'Flashcards'
   }
   Query: { // field return type name
     feed: 'Flashcards'
@@ -77,8 +81,16 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    deleteFlashcard: { // args
+      id: number; // Int!
+    }
     post: { // args
       details: string; // String!
+      title: string; // String!
+    }
+    updateFlashcard: { // args
+      details: string; // String!
+      id: number; // Int!
       title: string; // String!
     }
   }
